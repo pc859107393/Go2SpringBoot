@@ -62,8 +62,8 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('io.projectreactor:reactor-test')
 
-
     compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
     runtime 'mysql:mysql-connector-java:5.1.39'
 
+    compile 'com.google.code.gson:gson:2.7'
 }
