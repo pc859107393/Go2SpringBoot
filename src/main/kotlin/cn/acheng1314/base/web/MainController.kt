@@ -16,7 +16,7 @@ class MainController {
 
     @GetMapping(value = ["/"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
-    fun MainLocal(): Any = GsonUtil.toJson(User("程", "18976962315", "123456", "吹牛逼", Date()))
+    fun MainLocal(): Any = User("程", "18976962315", "123456", "吹牛逼", Date())
 
     @PostMapping(value = ["/json"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
