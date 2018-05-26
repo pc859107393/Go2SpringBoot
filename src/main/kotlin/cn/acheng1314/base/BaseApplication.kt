@@ -1,6 +1,7 @@
 package cn.acheng1314.base
 
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor
+import org.mybatis.spring.annotation.MapperScan
 import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -27,6 +28,7 @@ import java.util.*
 @SpringBootApplication
 @EnableWebMvc
 @EnableSwagger2
+@MapperScan(value = ["cn.acheng1314.base.dao"])
 @Configuration
 class BaseApplication : WebMvcConfigurer {
 
