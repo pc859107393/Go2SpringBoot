@@ -8,8 +8,6 @@ import java.io.Serializable
 import java.util.*
 
 /**
- * Created by pc on 2017/8/11.
- *
  * @version v1 <br></br>
  * 数据库表：cc_user
  */

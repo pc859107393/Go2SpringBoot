@@ -1,18 +1,14 @@
 package cn.acheng1314.base
 
-import cn.acheng1314.base.config.SpringfoxJsonToGsonAdapter
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor
-import com.google.gson.GsonBuilder
-import org.mybatis.spring.annotation.MapperScan
 import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.EnableAspectJAutoProxy
-import org.springframework.http.converter.HttpMessageConverter
-import org.springframework.http.converter.json.GsonHttpMessageConverter
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.transaction.PlatformTransactionManager
 import org.springframework.transaction.annotation.EnableTransactionManagement
 import org.springframework.transaction.interceptor.TransactionInterceptor
@@ -24,7 +20,6 @@ import springfox.documentation.builders.ApiInfoBuilder
 import springfox.documentation.builders.PathSelectors
 import springfox.documentation.builders.RequestHandlerSelectors
 import springfox.documentation.spi.DocumentationType
-import springfox.documentation.spring.web.json.Json
 import springfox.documentation.spring.web.plugins.Docket
 import springfox.documentation.swagger2.annotations.EnableSwagger2
 import java.util.*
@@ -33,8 +28,6 @@ import java.util.*
 @EnableWebMvc
 @EnableSwagger2
 @Configuration
-@EnableAspectJAutoProxy
-@EnableTransactionManagement
 class BaseApplication : WebMvcConfigurer {
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {

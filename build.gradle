@@ -17,9 +17,11 @@ buildscript {
     }
 }
 
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
-apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -48,12 +50,15 @@ repositories {
 
 
 dependencies {
+    compile("org.springframework.boot:spring-boot-starter-parent:${springBootVersion}")
     compile('org.springframework.boot:spring-boot-starter-aop')
     compile('org.springframework.boot:spring-boot-starter-cache')
     compile('org.springframework.boot:spring-boot-starter-freemarker')
-    compile('org.springframework.boot:spring-boot-starter-jdbc')
     compile('org.springframework.boot:spring-boot-starter-validation')
-    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-web') {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile "org.springframework.boot:spring-boot-starter-jetty"
     compile('org.springframework.boot:spring-boot-starter-webflux')
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")

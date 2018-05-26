@@ -1,7 +1,10 @@
 package cn.acheng1314.base.web
 
 import cn.acheng1314.base.domain.User
+import cn.acheng1314.base.service.UserServiceImpl
 import cn.acheng1314.base.utils.GsonUtil
+import io.swagger.annotations.ApiOperation
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -24,5 +27,13 @@ class MainController {
         println(String.format("用户信息：%s", user.toString()))
         return GsonUtil.toJson(user)
     }
+
+    @Autowired
+    lateinit var userService: UserServiceImpl
+
+    @GetMapping(value = ["/users"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+    @ResponseBody
+    @ApiOperation(value = "获取用户集合", notes = "用户列表查询", responseContainer = "List", response = User::class)
+    fun findAllUser(): Any = userService.findUserByPage(1, 20)
 
 }
