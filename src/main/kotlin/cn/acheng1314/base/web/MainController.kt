@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
+import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,6 +21,12 @@ class MainController {
     @GetMapping(value = ["/"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
     fun MainLocal(): Any = User("程", "18976962315", "123456", "吹牛逼", Date())
+
+    @GetMapping(value = ["/test"], produces = [MediaType.TEXT_HTML_VALUE])
+    fun getTest(map: ModelMap): String {
+        map["test"] = MainLocal()
+        return "test1"
+    }
 
     @PostMapping(value = ["/json"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
