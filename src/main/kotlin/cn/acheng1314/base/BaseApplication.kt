@@ -2,17 +2,15 @@ package cn.acheng1314.base
 
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor
 import org.mybatis.spring.annotation.MapperScan
-import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.EnableAspectJAutoProxy
 import org.springframework.transaction.PlatformTransactionManager
+import org.springframework.transaction.TransactionDefinition
 import org.springframework.transaction.annotation.EnableTransactionManagement
-import org.springframework.transaction.interceptor.TransactionInterceptor
+import org.springframework.transaction.interceptor.*
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
@@ -24,12 +22,15 @@ import springfox.documentation.spi.DocumentationType
 import springfox.documentation.spring.web.plugins.Docket
 import springfox.documentation.swagger2.annotations.EnableSwagger2
 import java.util.*
+import kotlin.collections.HashMap
+
 
 @SpringBootApplication
 @EnableWebMvc
 @EnableSwagger2
 @MapperScan(value = ["cn.acheng1314.base.dao"])
 @Configuration
+@EnableTransactionManagement
 class BaseApplication : WebMvcConfigurer {
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
@@ -45,46 +46,44 @@ class BaseApplication : WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/")
     }
 
-    @Bean(name = ["transactionInterceptor"])
-    fun transactionInterceptor(
-            platformTransactionManager: PlatformTransactionManager): TransactionInterceptor {
-        val transactionInterceptor = TransactionInterceptor()
-        // 事物管理器
-        transactionInterceptor.transactionManager = platformTransactionManager
-        val transactionAttributes = Properties()
+    fun transactionAttributeSource(): TransactionAttributeSource {
+        val source = NameMatchTransactionAttributeSource()
+        //只读或可写事物
+        val readOnlyTx = RuleBasedTransactionAttribute()
+        readOnlyTx.isReadOnly = true
+        readOnlyTx.propagationBehavior = TransactionDefinition.PROPAGATION_SUPPORTS
 
-        // 新增
-        transactionAttributes.setProperty("insert*",
-                "PROPAGATION_REQUIRED,-Throwable")
-        transactionAttributes.setProperty("add*",
-                "PROPAGATION_REQUIRED,-Throwable")
-        // 修改
-
-        transactionAttributes.setProperty("update*",
-                "PROPAGATION_REQUIRED,-Throwable")
-        // 删除
-        transactionAttributes.setProperty("delete*",
-                "PROPAGATION_REQUIRED,-Throwable")
-        //查询
-        transactionAttributes.setProperty("select*",
-                "PROPAGATION_REQUIRED,-Throwable,readOnly")
-        transactionAttributes.setProperty("find*",
-                "PROPAGATION_REQUIRED,-Throwable,readOnly")
-        transactionAttributes.setProperty("get*",
-                "PROPAGATION_REQUIRED,-Throwable,readOnly")
-
-        transactionInterceptor.setTransactionAttributes(transactionAttributes)
-        return transactionInterceptor
+        //可写事物
+        val requiredTx = RuleBasedTransactionAttribute(TransactionDefinition.PROPAGATION_REQUIRED
+                , Collections.singletonList(RollbackRuleAttribute(Exception::class.java)))
+        //使用kotlin作用域函数
+        return source.also {
+            it.setNameMap(HashMap<String, TransactionAttribute>().also {
+                it["add*"] = requiredTx
+                it["save*"] = requiredTx
+                it["insert*"] = requiredTx
+                it["update*"] = requiredTx
+                it["delete*"] = requiredTx
+                it["get*"] = readOnlyTx
+                it["query*"] = readOnlyTx
+                it["find*"] = readOnlyTx
+            })
+        }
     }
 
-    //代理到ServiceImpl的Bean
+    /*事务拦截器*/
+    @Bean(value = ["txInterceptor"])
+    fun getTransactionInterceptor(tx: PlatformTransactionManager): TransactionInterceptor {
+        return TransactionInterceptor(tx, transactionAttributeSource())
+    }
+
+    /**切面拦截规则 参数会自动从容器中注入 */
     @Bean
-    fun transactionAutoProxy(): BeanNameAutoProxyCreator {
-        val transactionAutoProxy = BeanNameAutoProxyCreator()
-        transactionAutoProxy.isProxyTargetClass = true
-        transactionAutoProxy.setBeanNames("*ServiceImpl")
-        transactionAutoProxy.setInterceptorNames("transactionInterceptor")
-        return transactionAutoProxy
+    fun pointcutAdvisor(txInterceptor: TransactionInterceptor): AspectJExpressionPointcutAdvisor {
+        val pointcutAdvisor = AspectJExpressionPointcutAdvisor()
+        pointcutAdvisor.advice = txInterceptor
+        pointcutAdvisor.expression = "execution (* cn.acheng1314.base.service.*ServiceImpl.*(..))"
+        return pointcutAdvisor
     }
 
     @Bean(name = ["defaultApi"])

@@ -20,7 +20,8 @@ class MainController {
 
     @GetMapping(value = ["/"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
-    fun MainLocal(): Any = User("程", "18976962315", "123456", "吹牛逼", Date())
+    @ApiOperation(value = "User输出测试", notes = "用户查询", response = User::class)
+    fun MainLocal(): Any = User("程", "18976962315", "123456", "吹牛", Date())
 
     @GetMapping(value = ["/test"], produces = [MediaType.TEXT_HTML_VALUE])
     fun getTest(map: ModelMap): String {
@@ -30,6 +31,7 @@ class MainController {
 
     @PostMapping(value = ["/json"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
+    @ApiOperation(value = "返回提交的User", notes = "返回提交的User", response = User::class)
     fun getJson(@RequestBody user: User): Any {
         println(String.format("用户信息：%s", user.toString()))
         return GsonUtil.toJson(user)

@@ -14,7 +14,7 @@ import java.util.ArrayList
 import com.google.gson.JsonElement
 import com.google.gson.JsonArray
 
-
+@SuppressWarnings("unchecked")
 object GsonUtil {
 
     private var gson: Gson? = null
@@ -89,7 +89,7 @@ object GsonUtil {
             val f = builder.getDeclaredField("instanceCreators")
             f.isAccessible = true
             //注册数组的处理器
-            gsonBulder.registerTypeAdapterFactory(CollectionTypeAdapterFactory(ConstructorConstructor(f.get(gsonBulder) as Map<Type, InstanceCreator<*>>)))
+            gsonBulder.registerTypeAdapterFactory(CollectionTypeAdapterFactory(ConstructorConstructor(f.get(gsonBulder) as Map<Type, InstanceCreator<Any>>)))
         } catch (e: Exception) {
             e.printStackTrace()
         }

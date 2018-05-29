@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.plugins.pagination.Pagination
 import com.baomidou.mybatisplus.service.impl.ServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service(value = "userService")
-class UserServiceImpl :ServiceImpl<UserDao,User>(){
+class UserServiceImpl : ServiceImpl<UserDao, User>() {
     @Autowired
     lateinit var userDao: UserDao
 
@@ -25,5 +27,18 @@ class UserServiceImpl :ServiceImpl<UserDao,User>(){
     var totalPage: Long? = null
     fun setTotalPage(pages: Long) {
         this.totalPage = pages
+    }
+
+//    @Transactional
+    @Throws(Exception::class)
+    fun addUser() {
+        val user = User()
+        user.duty = "aaa"
+        user.loginName = "aaa"
+        user.name = "aaa"
+        user.password = "aaa"
+        user.createDate = Date()
+        baseMapper.insert(user)
+        throw Exception("测试事物")
     }
 }
