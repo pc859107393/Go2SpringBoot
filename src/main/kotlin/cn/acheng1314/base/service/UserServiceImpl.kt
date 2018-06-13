@@ -29,16 +29,4 @@ class UserServiceImpl : ServiceImpl<UserDao, User>() {
         this.totalPage = pages
     }
 
-//    @Transactional
-    @Throws(Exception::class)
-    fun addUser() {
-        val user = User()
-        user.duty = "aaa"
-        user.loginName = "aaa"
-        user.name = "aaa"
-        user.password = "aaa"
-        user.createDate = Date()
-        baseMapper.insert(user)
-        throw Exception("测试事物")
-    }
 }

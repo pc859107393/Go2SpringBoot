@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan
 import org.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.transaction.PlatformTransactionManager
@@ -31,6 +32,7 @@ import kotlin.collections.HashMap
 @MapperScan(value = ["cn.acheng1314.base.dao"])
 @Configuration
 @EnableTransactionManagement
+@EnableCaching
 class BaseApplication : WebMvcConfigurer {
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
