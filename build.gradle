@@ -78,6 +78,6 @@ dependencies {
     compile 'com.github.xiaoymin:swagger-bootstrap-ui:1.7.2'
 
     compile 'net.sf.ehcache:ehcache:2.10.5'
-
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6'
 
 }

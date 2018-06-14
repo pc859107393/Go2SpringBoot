@@ -13,8 +13,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @Service(value = "userService")
-@CacheConfig(cacheNames = ["user"])
+@CacheConfig(cacheNames = ["cache_user"])
 class UserServiceImpl : ServiceImpl<UserDao, User>() {
+
     @Autowired
     lateinit var userDao: UserDao
 
@@ -33,7 +34,7 @@ class UserServiceImpl : ServiceImpl<UserDao, User>() {
         this.totalPage = pages
     }
 
-    @Cacheable(value = ["#list"])
+    @Cacheable(sync = true)
     fun findAll() = baseMapper.selectList(null)
 
 }

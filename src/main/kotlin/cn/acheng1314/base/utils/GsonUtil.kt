@@ -14,7 +14,7 @@ import java.util.ArrayList
 import com.google.gson.JsonElement
 import com.google.gson.JsonArray
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("UNCHECKED_CAST")
 object GsonUtil {
 
     private var gson: Gson? = null
