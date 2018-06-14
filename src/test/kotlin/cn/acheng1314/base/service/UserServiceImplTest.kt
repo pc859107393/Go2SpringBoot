@@ -9,8 +9,4 @@ class UserServiceImplTest : BaseApplicationTests() {
     @Autowired
     private lateinit var userService: UserServiceImpl
 
-    @Test
-    fun addUserTest() {
-        userService.addUser()
-    }
 }

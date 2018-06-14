@@ -43,6 +43,6 @@ class MainController {
     @GetMapping(value = ["/users"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
     @ApiOperation(value = "获取用户集合", notes = "用户列表查询", responseContainer = "List", response = User::class)
-    fun findAllUser(): Any = userService.findUserByPage(1, 20)
+    fun findAllUser(): Any = userService.findAll()
 
 }
