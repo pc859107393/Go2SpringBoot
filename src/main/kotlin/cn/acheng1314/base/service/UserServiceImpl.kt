@@ -2,6 +2,7 @@ package cn.acheng1314.base.service
 
 import cn.acheng1314.base.dao.UserDao
 import cn.acheng1314.base.domain.User
+import com.baomidou.mybatisplus.plugins.Page
 import com.baomidou.mybatisplus.plugins.pagination.Pagination
 import com.baomidou.mybatisplus.service.impl.ServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,19 +20,14 @@ class UserServiceImpl : ServiceImpl<UserDao, User>() {
     @Autowired
     lateinit var userDao: UserDao
 
-    fun findUserByPage(pageNum: Int, pageSize: Int): ArrayList<User> {
+    @Cacheable(sync = true)
+    fun findUserByPage(pageNum: Int, pageSize: Int): Page<User> {
         return try {
-            val pagination = Pagination(pageNum, pageSize)
-            setTotalPage(pagination.pages)
-            userDao.findAllByPage(pagination)
+            val pagination = Page<User>(pageNum, pageSize)
+            pagination.setRecords(userDao.findAllByPage(pagination))
         } catch (e: Exception) {
-            arrayListOf()
+            Page<User>(pageNum, pageSize)
         }
-    }
-
-    var totalPage: Long? = null
-    fun setTotalPage(pages: Long) {
-        this.totalPage = pages
     }
 
     @Cacheable(sync = true)

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @Controller
@@ -43,6 +40,7 @@ class MainController {
     @GetMapping(value = ["/users"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
     @ApiOperation(value = "获取用户集合", notes = "用户列表查询", responseContainer = "List", response = User::class)
-    fun findAllUser(): Any = userService.findAll()
+    fun findAllUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") pageNum: Int,
+                    @RequestParam(value = "pageSize", required = false, defaultValue = "15") pageSize: Int): Any = userService.findUserByPage(pageNum, pageSize)
 
 }
