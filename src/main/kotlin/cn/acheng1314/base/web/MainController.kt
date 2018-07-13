@@ -5,6 +5,7 @@ import cn.acheng1314.base.service.UserServiceImpl
 import cn.acheng1314.base.utils.GsonUtil
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
@@ -40,7 +41,14 @@ class MainController {
     @GetMapping(value = ["/users"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
     @ApiOperation(value = "获取用户集合", notes = "用户列表查询", responseContainer = "List", response = User::class)
-    fun findAllUser(@RequestParam(value = "pageNum", required = false, defaultValue = "1") pageNum: Int,
+    fun findUserPage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") pageNum: Int,
                     @RequestParam(value = "pageSize", required = false, defaultValue = "15") pageSize: Int): Any = userService.findUserByPage(pageNum, pageSize)
+
+    @GetMapping(value = ["/allUser"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+    @ResponseBody
+    @ApiOperation(value = "获取所有用户集合", notes = "所有用户列表查询", responseContainer = "List", response = User::class)
+    fun findAllUser(): Any = userService.findAll()
+
+
 
 }

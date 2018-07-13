@@ -13,6 +13,6 @@ class UserDaoTest : BaseApplicationTests() {
     fun findAllTest() {
         val pagination = Pagination(1, 20)
         val list = userDao.findAllByPage(pagination)
-        list.stream().forEach { t -> println(String.format("用户信息为：%s", t.toString())) }
+        list?.forEach { t -> println(String.format("用户信息为：%s", t.toString())) }
     }
 }

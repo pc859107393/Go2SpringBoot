@@ -1,6 +1,9 @@
 package cn.acheng1314.base.utils
 
 
+import cn.acheng1314.base.domain.wrap.ResponseWrapList
+import com.baomidou.mybatisplus.plugins.Page
+import com.baomidou.mybatisplus.plugins.pagination.Pagination
 import com.google.gson.*
 import com.google.gson.internal.ConstructorConstructor
 import com.google.gson.internal.bind.CollectionTypeAdapterFactory
@@ -13,6 +16,7 @@ import java.lang.reflect.Type
 import java.util.ArrayList
 import com.google.gson.JsonElement
 import com.google.gson.JsonArray
+import org.springframework.http.HttpStatus
 
 @SuppressWarnings("UNCHECKED_CAST")
 object GsonUtil {

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository
 interface UserDao : BaseMapper<User> {
 
     @Select("SELECT * FROM `cc_user` ORDER BY concat(`used`,`id`) DESC")
-    fun findAllByPage(pagination: Pagination): List<User>
+    fun findAllByPage(pagination: Pagination): List<User>?
 }
