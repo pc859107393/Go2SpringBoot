@@ -1,6 +1,7 @@
 package cn.acheng1314.base.web
 
 import cn.acheng1314.base.domain.User
+import cn.acheng1314.base.exception.ApiException
 import cn.acheng1314.base.service.UserServiceImpl
 import cn.acheng1314.base.utils.GsonUtil
 import io.swagger.annotations.ApiOperation
@@ -42,13 +43,18 @@ class MainController {
     @ResponseBody
     @ApiOperation(value = "获取用户集合", notes = "用户列表查询", responseContainer = "List", response = User::class)
     fun findUserPage(@RequestParam(value = "pageNum", required = false, defaultValue = "1") pageNum: Int,
-                    @RequestParam(value = "pageSize", required = false, defaultValue = "15") pageSize: Int): Any = userService.findUserByPage(pageNum, pageSize)
+                     @RequestParam(value = "pageSize", required = false, defaultValue = "15") pageSize: Int): Any = userService.findUserByPage(pageNum, pageSize)
 
     @GetMapping(value = ["/allUser"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
     @ApiOperation(value = "获取所有用户集合", notes = "所有用户列表查询", responseContainer = "List", response = User::class)
     fun findAllUser(): Any = userService.findAll()
 
+    @GetMapping(value = ["lowb"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+    @ResponseBody
+    @ApiOperation(value = "异常测试", notes = "异常测试")
+    @Throws(ApiException::class)
+    fun testException(): Any = throw ApiException("test Api Exception")
 
 
 }
