@@ -2,6 +2,7 @@ package cn.acheng1314.base.web
 
 import cn.acheng1314.base.domain.User
 import cn.acheng1314.base.exception.ApiException
+import cn.acheng1314.base.exception.WebPageException
 import cn.acheng1314.base.service.UserServiceImpl
 import cn.acheng1314.base.utils.GsonUtil
 import io.swagger.annotations.ApiOperation
@@ -55,6 +56,11 @@ class MainController {
     @ApiOperation(value = "异常测试", notes = "异常测试")
     @Throws(ApiException::class)
     fun testException(): Any = throw ApiException("test Api Exception")
+
+    @GetMapping(value = ["lowb1"], produces = [MediaType.TEXT_HTML_VALUE])
+    @ApiOperation(value = "异常测试", notes = "异常测试")
+    @Throws(WebPageException::class)
+    fun testWebException(): String = throw WebPageException("test Api Exception")
 
 
 }

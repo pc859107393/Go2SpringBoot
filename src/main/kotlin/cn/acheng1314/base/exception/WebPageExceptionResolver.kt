@@ -15,7 +15,7 @@ class WebPageExceptionResolver : HandlerExceptionResolver {
             : ModelAndView? = ModelAndView("error/error")
             .run {
                 this.modelMap.addAttribute("msg", ex.message)
-                this.modelMap.addAttribute("code", response.status)
+                this.modelMap.addAttribute("path", request.requestURL)
                 return@run this
             }.run { return this }
 }
