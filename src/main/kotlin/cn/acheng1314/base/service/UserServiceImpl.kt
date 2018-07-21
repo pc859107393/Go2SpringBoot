@@ -3,6 +3,7 @@ package cn.acheng1314.base.service
 import cn.acheng1314.base.dao.UserDao
 import cn.acheng1314.base.domain.User
 import cn.acheng1314.base.domain.wrap.ResponseWrapList
+import cn.acheng1314.base.redis.RedisServiceImpl
 import com.baomidou.mybatisplus.plugins.Page
 import com.baomidou.mybatisplus.plugins.pagination.Pagination
 import com.baomidou.mybatisplus.service.impl.ServiceImpl
@@ -21,9 +22,6 @@ class UserServiceImpl : ServiceImpl<UserDao, User>() {
 
     @Autowired
     lateinit var userDao: UserDao
-
-    @Autowired
-    lateinit var jedisPool: JedisPool
 
     @Cacheable(sync = true)
     fun findUserByPage(pageNum: Int, pageSize: Int): ResponseWrapList<User> {

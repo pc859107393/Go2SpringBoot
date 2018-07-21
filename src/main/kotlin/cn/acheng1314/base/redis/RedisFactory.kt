@@ -2,11 +2,12 @@ package cn.acheng1314.base.redis
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import redis.clients.jedis.JedisPool
 import redis.clients.jedis.JedisPoolConfig
 
-@Service
+@Component
 class RedisFactory {
     @Autowired
     lateinit var redisConfig: RedisConfig
@@ -19,12 +20,13 @@ class RedisFactory {
         config.minIdle = redisConfig.poolMinIdle
         config.maxTotal = redisConfig.poolMaxTotal
         config.maxWaitMillis = redisConfig.poolMaxWait
-        return JedisPool(config
+        val jedisPool = JedisPool(config
                 , redisConfig.host
                 , redisConfig.port
                 , redisConfig.timeout
-                , redisConfig.password
-                , 0)
+                , if (null != redisConfig.password) redisConfig.password else null
+                , 1)
+        return jedisPool
     }
 
 }

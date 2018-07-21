@@ -6,14 +6,14 @@ import org.springframework.stereotype.Component
 @Component
 @ConfigurationProperties(prefix = "redis")
 class RedisConfig {
-    var host: String = "localhost"
+    var host: String = "127.0.0.1"
     var port: Int = -1
-    var timeout = 2000
-    var password = ""
-    var poolMaxTotal = 100
-    var poolMaxIdle = 8
+    var timeout = 10 * 1000
+    var password: String? = null
+    var poolMaxTotal = 1000
+    var poolMaxIdle = 500
     var poolMinIdle = 0
-    var poolMaxWait:Long = -1
+    var poolMaxWait: Long = 500 * 1000
 
     override fun toString(): String {
         return "RedisConfig(host='$host', prot=$port, timeout=$timeout, password='$password', poolMaxTotal=$poolMaxTotal, poolMaxIdle=$poolMaxIdle, poolMinIdle=$poolMinIdle, poolMaxWait=$poolMaxWait)"

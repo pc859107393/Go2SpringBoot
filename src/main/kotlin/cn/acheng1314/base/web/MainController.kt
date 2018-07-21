@@ -3,6 +3,8 @@ package cn.acheng1314.base.web
 import cn.acheng1314.base.domain.User
 import cn.acheng1314.base.exception.ApiException
 import cn.acheng1314.base.exception.WebPageException
+import cn.acheng1314.base.redis.RedisServiceImpl
+import cn.acheng1314.base.redis.selectKey.UserKey
 import cn.acheng1314.base.service.UserServiceImpl
 import cn.acheng1314.base.utils.GsonUtil
 import io.swagger.annotations.ApiOperation
@@ -17,6 +19,8 @@ import java.util.*
 @Controller
 class MainController {
 
+    @Autowired
+    lateinit var redisService: RedisServiceImpl
 
     @GetMapping(value = ["/"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
@@ -34,6 +38,7 @@ class MainController {
     @ApiOperation(value = "返回提交的User", notes = "返回提交的User", response = User::class)
     fun getJson(@RequestBody user: User): Any {
         println(String.format("用户信息：%s", user.toString()))
+        redisService.set(UserKey.getById, user.id.toString(), user)
         return GsonUtil.toJson(user)
     }
 

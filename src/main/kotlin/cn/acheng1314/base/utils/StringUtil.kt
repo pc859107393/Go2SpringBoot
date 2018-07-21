@@ -60,7 +60,7 @@ object StringUtil {
     fun isEmpty(input: CharSequence?): Boolean {
         if (input == null || "" == input)
             return true
-        for (i in 0 until input.length) {
+        (0 until input.length).forEach { i ->
             val c = input[i]
             if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
                 return false
@@ -70,13 +70,15 @@ object StringUtil {
     }
 
     /**
-     * 判断给定字符串是否空白串 空白串是指由空格、制表符、回车符、换行符组成的字符串 若输入字符串为null或空字符串，返回true
+     * 判断给定字符串是否空白串 空白串是指由空格、制表符、回车符、换行符组成的字符串
+     * @return 若输入字符串为null或空字符串，返回true
+     * <br/>
+     * 在java中我们的可变参数为： String... tmp， 但是在Kotlin中使用 vararg代表可变参数
      */
-    fun isEmpty(vararg strs: CharSequence): Boolean {
-        for (str in strs) {
-            if (isEmpty(str)) {
-                return true
-            }
+    fun isEmpty(vararg strs: CharSequence?): Boolean {
+        strs.forEach { str ->
+            if (isEmpty(str))
+                return@isEmpty true
         }
         return false
     }
@@ -383,8 +385,11 @@ object StringUtil {
         return false
     }
 
+    /**
+     * 获取32位的UUid
+     */
     val uuid32: String
-        get() {
+        get() =
+            UUID.randomUUID().toString().trim { it <= ' ' }.replace("-".toRegex(), "")
 
-        }
 }
