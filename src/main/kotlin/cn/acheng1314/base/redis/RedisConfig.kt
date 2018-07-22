@@ -12,7 +12,7 @@ class RedisConfig {
     var password: String? = null
     var poolMaxTotal = 1000
     var poolMaxIdle = 500
-    var poolMinIdle = 0
+    var poolMinIdle = 8
     var poolMaxWait: Long = 500 * 1000
 
     override fun toString(): String {

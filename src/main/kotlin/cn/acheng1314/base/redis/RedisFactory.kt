@@ -1,5 +1,6 @@
 package cn.acheng1314.base.redis
 
+import cn.acheng1314.base.utils.StringUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
@@ -24,7 +25,7 @@ class RedisFactory {
                 , redisConfig.host
                 , redisConfig.port
                 , redisConfig.timeout
-                , if (null != redisConfig.password) redisConfig.password else null
+                , if (StringUtil.isEmpty(redisConfig.password)) null else redisConfig.password
                 , 1)
         return jedisPool
     }
