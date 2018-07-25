@@ -19,7 +19,7 @@ object StringUtil {
     private val emailer = Pattern
             .compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*")
     private val phone = Pattern
-            .compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$")
+            .compile("^(1[3-9][0-9])\\d{8}$")
 
     /**
      * 返回当前系统时间
