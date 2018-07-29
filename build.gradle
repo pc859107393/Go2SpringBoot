@@ -82,4 +82,6 @@ dependencies {
     compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.6'
 
     compile 'redis.clients:jedis:2.9.0'
+
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
 }
