@@ -10,4 +10,10 @@ class WeToken : Serializable {
     var expires_in = 0
     var errcode = 0
     var errmsg = ""
+
+    override fun toString(): String {
+        return "WeToken(access_token='$access_token', expires_in=$expires_in, errcode=$errcode, errmsg='$errmsg')"
+    }
+
+
 }

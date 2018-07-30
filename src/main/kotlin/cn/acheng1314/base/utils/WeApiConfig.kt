@@ -12,12 +12,18 @@ class WeApiConfig(private var appid: String, private var secret: String) : Seria
 
     private val refreshFlag = AtomicBoolean(false)
 
+    private var accessToken = ""
+
     init {
         initAccessToken(System.currentTimeMillis())
     }
 
+    /**
+     * 初始化微信AccessToken
+     * @param refresh 刷新时间
+     */
     @Throws(Exception::class)
-    fun initAccessToken(refresh: Long) {
+    private fun initAccessToken(refresh: Long) {
         //记住初始时间和刷新时间
         val oldTime = startTime
         this.startTime = refresh
@@ -29,14 +35,35 @@ class WeApiConfig(private var appid: String, private var secret: String) : Seria
                     .execute()
             val weToken = GsonUtil.toBean(response.body().toString(), WeToken::class.java)
             if (StringUtil.isEmpty(weToken.access_token)) {
-                throw WeixinException("微信access_token刷新出错！")
+                throw WeixinException(String.format("微信access_token刷新出错！错误信息：%s", weToken.toString()))
             }
+            this.accessToken = weToken.access_token
         } catch (e: Exception) {
             startTime = oldTime
         }
 
         //设置为刷新完成标志
         this.refreshFlag.set(false)
+    }
+
+    /**
+     *获取微信的AccessToken
+     * @return 返回AccessToken
+     */
+    fun getAccessToken(): String {
+        val now = System.currentTimeMillis()
+        val timeLimit = now - this.startTime
+        try {
+            //compareAndSet(false, true)提供了原子性操作
+            if (timeLimit > 7100000 && this.refreshFlag.compareAndSet(false, true)) {
+                initAccessToken(now)
+            }
+        } catch (e: Exception) {
+            this.refreshFlag.set(false)
+            e.printStackTrace()
+        } finally {
+            return accessToken
+        }
     }
 
 }

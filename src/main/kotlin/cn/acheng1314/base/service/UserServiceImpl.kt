@@ -3,18 +3,12 @@ package cn.acheng1314.base.service
 import cn.acheng1314.base.dao.UserDao
 import cn.acheng1314.base.domain.User
 import cn.acheng1314.base.domain.wrap.ResponseWrapList
-import cn.acheng1314.base.redis.RedisServiceImpl
 import com.baomidou.mybatisplus.plugins.Page
-import com.baomidou.mybatisplus.plugins.pagination.Pagination
 import com.baomidou.mybatisplus.service.impl.ServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
-import redis.clients.jedis.JedisPool
-import java.util.*
-import kotlin.collections.ArrayList
 
 @Service(value = "userService")
 @CacheConfig(cacheNames = ["cache_user"])
