@@ -37,7 +37,7 @@ class WeApiConfig(private var appid: String, private var secret: String) : Seria
             if (StringUtil.isEmpty(weToken.access_token)) {
                 throw WeixinException(String.format("微信access_token刷新出错！错误信息：%s", weToken.toString()))
             }
-            this.accessToken = weToken.access_token
+            this.accessToken = weToken.access_token!!
         } catch (e: Exception) {
             startTime = oldTime
         }

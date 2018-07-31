@@ -6,10 +6,10 @@ import java.io.Serializable
  * 微信access_token
  */
 class WeToken : Serializable {
-    var access_token: String = ""
-    var expires_in = 0
-    var errcode = 0
-    var errmsg = ""
+    var access_token: String? = null
+    var expires_in: Int? = null
+    var errcode: Int? = null
+    var errmsg: String? = null
 
     override fun toString(): String {
         return "WeToken(access_token='$access_token', expires_in=$expires_in, errcode=$errcode, errmsg='$errmsg')"
