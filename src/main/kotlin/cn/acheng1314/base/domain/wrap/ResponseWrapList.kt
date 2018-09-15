@@ -9,6 +9,7 @@ class ResponseWrapList<T> : Serializable {
     var status: String = "OK"
     var pageNum: Int = 1
     var pageSize: Int = 15
+    var totalPage: Int = 0
     var data: MutableCollection<T> = arrayListOf()
 
     fun notFound(): ResponseWrapList<T> {
@@ -23,6 +24,7 @@ class ResponseWrapList<T> : Serializable {
             if (page.records.isEmpty()) return@warp empty()
             pageNum = page.current
             pageSize = page.size
+            totalPage = page.pages.toInt()
             data.addAll(page.records)
             code = HttpStatus.OK.value()
             status = HttpStatus.OK.reasonPhrase

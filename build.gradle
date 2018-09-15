@@ -84,4 +84,7 @@ dependencies {
     compile 'redis.clients:jedis:2.9.0'
 
     compile 'com.squareup.okhttp3:okhttp:3.8.1'
+
+    //加入shiro作为安全管理
+    compile 'org.apache.shiro:shiro-all:1.4.0'
 }
