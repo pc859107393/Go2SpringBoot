@@ -34,7 +34,7 @@ import kotlin.collections.HashMap
 @Configuration
 @EnableTransactionManagement
 @EnableCaching
-@EnableScheduling
+//@EnableScheduling
 class BaseApplication : WebMvcConfigurer {
 
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {

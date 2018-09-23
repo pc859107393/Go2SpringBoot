@@ -87,4 +87,9 @@ dependencies {
 
     //加入shiro作为安全管理
     compile 'org.apache.shiro:shiro-all:1.4.0'
+    compile ('org.quartz-scheduler:quartz:2.3.0') {
+        exclude group: 'com.zaxxer.*'
+    }
+
+    runtime "mysql:mysql-connector-java:5.1.39"
 }

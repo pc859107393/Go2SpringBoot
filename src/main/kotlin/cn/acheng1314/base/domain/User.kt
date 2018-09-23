@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat
 import io.swagger.annotations.ApiParam
 import java.io.Serializable
 import java.util.*
+import javax.validation.constraints.NotEmpty
 
 /**
  * @version v1 <br></br>
@@ -19,6 +20,7 @@ class User : Model<User> {
     var name: String? = null
     //    @TableField(value = "login_name")
     @ApiParam(required = true)
+    @NotEmpty(message = "登录名称不能为空！")
     var loginName: String? = null
     @ApiParam(required = true)
     var password: String? = null

@@ -7,6 +7,7 @@ import cn.acheng1314.base.redis.RedisServiceImpl
 import cn.acheng1314.base.redis.selectKey.UserKey
 import cn.acheng1314.base.service.UserServiceImpl
 import cn.acheng1314.base.utils.GsonUtil
+import cn.acheng1314.base.validate.annotation.BeanValid
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -36,6 +37,7 @@ class MainController {
     @PostMapping(value = ["/json"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
     @ApiOperation(value = "返回提交的User", notes = "返回提交的User", response = User::class)
+    @BeanValid()
     fun getJson(@RequestBody user: User): Any {
         println(String.format("用户信息：%s", user.toString()))
         redisService.set(UserKey.getById, user.id.toString(), user)
