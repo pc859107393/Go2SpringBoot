@@ -20,7 +20,7 @@ class UserServiceImpl : ServiceImpl<UserDao, User>() {
     @Cacheable(sync = true)
     fun findUserByPage(pageNum: Int, pageSize: Int): ResponseWrapList<User> {
         Page<User>(pageNum, pageSize)
-                .let {
+                .let { it ->
                     it.isAsc = false
                     it.isOpenSort = false
                     it.setRecords(userDao.findAllByPage(it))

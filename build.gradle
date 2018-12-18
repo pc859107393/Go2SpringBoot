@@ -1,14 +1,14 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.31'
-        springBootVersion = '2.1.0.BUILD-SNAPSHOT'
+        kotlinVersion = '1.3.10'
+        springBootVersion = '2.1.1.RELEASE'
         springfoxVersion = '2.8.0'
     }
     repositories {
-        maven { url "http://maven.aliyun.com/nexus/content/repositories/central" }
         mavenCentral()
         maven { url "https://repo.spring.io/snapshot" }
         maven { url "https://repo.spring.io/milestone" }
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/central" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -58,19 +58,18 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-webflux')
     compile('org.springframework.boot:spring-boot-configuration-processor')
-    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
+//    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
-    runtime('org.springframework.boot:spring-boot-devtools')
-    runtime('mysql:mysql-connector-java')
+//    runtime('org.springframework.boot:spring-boot-devtools')
+//    runtime('mysql:mysql-connector-java')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('io.projectreactor:reactor-test')
 
-    compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
+    compile 'com.alibaba:druid-spring-boot-starter:1.1.10'
 
     compile 'com.google.code.gson:gson:2.7'
     //mybatis-plus插件支持
-    compile 'com.baomidou:mybatis-plus:2.3'
     compile 'com.baomidou:mybatis-plus-boot-starter:2.3'
 
     compile "io.springfox:springfox-swagger2:${springfoxVersion}"
@@ -87,9 +86,8 @@ dependencies {
 
     //加入shiro作为安全管理
     compile 'org.apache.shiro:shiro-all:1.4.0'
-    compile ('org.quartz-scheduler:quartz:2.3.0') {
+    compile('org.quartz-scheduler:quartz:2.3.0') {
         exclude group: 'com.zaxxer.*'
     }
-
     runtime "mysql:mysql-connector-java:5.1.39"
 }

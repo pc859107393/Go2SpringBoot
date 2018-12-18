@@ -1,7 +1,9 @@
 package cn.acheng1314.base.domain
 
 import com.baomidou.mybatisplus.activerecord.Model
+import com.baomidou.mybatisplus.annotations.TableId
 import com.baomidou.mybatisplus.annotations.TableName
+import com.baomidou.mybatisplus.enums.IdType
 import com.fasterxml.jackson.annotation.JsonFormat
 import io.swagger.annotations.ApiParam
 import java.io.Serializable
@@ -14,7 +16,9 @@ import javax.validation.constraints.NotEmpty
  */
 @TableName(value = "cc_user")
 class User : Model<User> {
+
     @ApiParam(required = false)
+    @TableId(type = IdType.AUTO)
     var id: Long? = null
     @ApiParam(required = true)
     var name: String? = null

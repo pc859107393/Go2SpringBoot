@@ -3,7 +3,6 @@ package cn.acheng1314.base.service
 import cn.acheng1314.base.domain.WeToken
 import cn.acheng1314.base.redis.RedisServiceImpl
 import cn.acheng1314.base.redis.selectKey.WeTokenKey
-import cn.acheng1314.base.utils.StringUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
