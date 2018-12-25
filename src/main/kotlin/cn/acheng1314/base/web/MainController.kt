@@ -7,6 +7,7 @@ import cn.acheng1314.base.redis.RedisServiceImpl
 import cn.acheng1314.base.redis.selectKey.UserKey
 import cn.acheng1314.base.service.UserServiceImpl
 import cn.acheng1314.base.utils.GsonUtil
+import cn.acheng1314.base.utils.SqlInjectCheckUtil
 import cn.acheng1314.base.validate.annotation.BeanValid
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import kotlin.collections.HashMap
 
 @Controller
 class MainController {
@@ -67,6 +69,15 @@ class MainController {
     @ApiOperation(value = "异常测试", notes = "异常测试")
     @Throws(WebPageException::class)
     fun testWebException(): String = throw WebPageException("test Api Exception")
+
+    @PostMapping(value = ["/sqlInjectTest"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
+    @ResponseBody
+    @ApiOperation(value = "SQL测试", notes = "SQL测试")
+    fun checkSql(@RequestParam(value = "/sql") sql: String): Any {
+        val map = HashMap<String, Any>()
+        map["code"] = SqlInjectCheckUtil.isSql(sql)
+        return map
+    }
 
 
 }

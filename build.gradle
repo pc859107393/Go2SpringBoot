@@ -90,4 +90,8 @@ dependencies {
         exclude group: 'com.zaxxer.*'
     }
     runtime "mysql:mysql-connector-java:5.1.39"
+
+    // https://mvnrepository.com/artifact/org.springframework.amqp/spring-rabbit
+//    compile 'org.springframework.amqp:spring-rabbit:2.1.0.RELEASE'
+
 }
