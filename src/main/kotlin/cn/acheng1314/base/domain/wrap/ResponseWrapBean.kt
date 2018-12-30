@@ -6,7 +6,7 @@ import java.io.Serializable
 class ResponseWrapBean<T> : Serializable {
     var code: Int = 200
     var status: String = "OK"
-    var data: Any = Any()
+    var data: Any? = null
 
     fun warp(bean: T?): ResponseWrapBean<T> {
         if (bean == null) return notFound()

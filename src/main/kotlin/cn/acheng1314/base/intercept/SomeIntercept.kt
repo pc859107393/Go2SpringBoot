@@ -30,30 +30,30 @@ class SomeIntercept : HandlerInterceptor {
 
         //==================sql注入处理===================
         //获得所有请求参数名
-        val params = request.parameterNames
-        val sql = StringBuilder()
-        while (params.hasMoreElements()) {
-            //得到参数名
-            val name = params.nextElement().toString()
-            //得到参数对应值
-            val value = request.getParameterValues(name)
-            for (s in value) {
-                sql.append(s)
-            }
-        }
-
-        //有sql关键字，跳转到error.html
-        if (SqlInjectCheckUtil.isSql(sql.toString())) {
-            log.info(String.format("检测到用户 %s 进行sql注入，ip = %s", request.session.id, IPUtil.getIpAddr(request)))
-            response.characterEncoding = "UTF-8"
-            response.contentType = "application/json; charset=utf-8"
-            val result = JSONObject()
-            result.put("code", "403")
-            result.put("description", "Were you do any sql inject? if you are success, please tell us, we will thanks for your help. No Can No BB!")
-            val out: PrintWriter = response.writer
-            out.append(result.toString())
-            return false
-        }
+//        val params = request.parameterNames
+//        val sql = StringBuilder()
+//        while (params.hasMoreElements()) {
+//            //得到参数名
+//            val name = params.nextElement().toString()
+//            //得到参数对应值
+//            val value = request.getParameterValues(name)
+//            for (s in value) {
+//                sql.append(s)
+//            }
+//        }
+//
+//        //有sql关键字，跳转到error.html
+//        if (SqlInjectCheckUtil.isSql(sql.toString())) {
+//            log.info(String.format("检测到用户 %s 进行sql注入，ip = %s", request.session.id, IPUtil.getIpAddr(request)))
+//            response.characterEncoding = "UTF-8"
+//            response.contentType = "application/json; charset=utf-8"
+//            val result = JSONObject()
+//            result.put("code", "403")
+//            result.put("description", "Were you do any sql inject? if you are success, please tell us, we will thanks for your help. No Can No BB!")
+//            val out: PrintWriter = response.writer
+//            out.append(result.toString())
+//            return false
+//        }
 
         return super.preHandle(request, response, handler)
     }

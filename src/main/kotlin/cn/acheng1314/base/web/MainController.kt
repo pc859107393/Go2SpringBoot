@@ -7,8 +7,8 @@ import cn.acheng1314.base.redis.RedisServiceImpl
 import cn.acheng1314.base.redis.selectKey.UserKey
 import cn.acheng1314.base.service.UserServiceImpl
 import cn.acheng1314.base.utils.GsonUtil
-import cn.acheng1314.base.utils.SqlInjectCheckUtil
 import cn.acheng1314.base.validate.annotation.BeanValid
+import cn.acheng1314.base.validate.annotation.SqlInjectCheck
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -73,11 +73,11 @@ class MainController {
     @PostMapping(value = ["/sqlInjectTest"], produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     @ResponseBody
     @ApiOperation(value = "SQL测试", notes = "SQL测试")
+    @SqlInjectCheck
     fun checkSql(@RequestParam(value = "/sql") sql: String): Any {
         val map = HashMap<String, Any>()
-        map["code"] = SqlInjectCheckUtil.isSql(sql)
+        map["code"] = "SqlInjectCheckUtil.isSql(sql)"
         return map
     }
-
 
 }
