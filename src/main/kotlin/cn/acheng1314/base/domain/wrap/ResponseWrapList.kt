@@ -1,6 +1,6 @@
 package cn.acheng1314.base.domain.wrap
 
-import com.baomidou.mybatisplus.plugins.Page
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import org.springframework.http.HttpStatus
 import java.io.Serializable
 
@@ -22,8 +22,8 @@ class ResponseWrapList<T> : Serializable {
         if (page == null) return@warp notFound()
         page.run {
             if (page.records.isEmpty()) return@warp empty()
-            pageNum = page.current
-            pageSize = page.size
+            pageNum = page.current.toInt()
+            pageSize = page.size.toInt()
             totalPage = page.pages.toInt()
             data.addAll(page.records)
             code = HttpStatus.OK.value()

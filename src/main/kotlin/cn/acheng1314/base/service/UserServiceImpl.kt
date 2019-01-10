@@ -1,10 +1,11 @@
 package cn.acheng1314.base.service
 
 import cn.acheng1314.base.dao.UserDao
-import cn.acheng1314.base.domain.User
+import cn.acheng1314.base.domain.bean.User
 import cn.acheng1314.base.domain.wrap.ResponseWrapList
-import com.baomidou.mybatisplus.plugins.Page
-import com.baomidou.mybatisplus.service.impl.ServiceImpl
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import javafx.scene.control.Pagination
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cache.annotation.CacheConfig
 import org.springframework.cache.annotation.Cacheable
@@ -19,12 +20,7 @@ class UserServiceImpl : ServiceImpl<UserDao, User>() {
 
     @Cacheable(sync = true)
     fun findUserByPage(pageNum: Int, pageSize: Int): ResponseWrapList<User> {
-        Page<User>(pageNum, pageSize)
-                .let { it ->
-                    it.isAsc = false
-                    it.isOpenSort = false
-                    it.setRecords(userDao.findAllByPage(it))
-                }
+        Page<User>(pageNum.toLong(), pageSize.toLong()).setRecords(userDao.findAllByPage(Pagination(pageSize, pageNum)))
                 .run { return ResponseWrapList<User>().warp(this) }
     }
 

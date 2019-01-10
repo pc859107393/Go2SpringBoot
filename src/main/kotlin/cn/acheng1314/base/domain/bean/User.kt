@@ -1,9 +1,9 @@
-package cn.acheng1314.base.domain
+package cn.acheng1314.base.domain.bean
 
-import com.baomidou.mybatisplus.activerecord.Model
-import com.baomidou.mybatisplus.annotations.TableId
-import com.baomidou.mybatisplus.annotations.TableName
-import com.baomidou.mybatisplus.enums.IdType
+import com.baomidou.mybatisplus.annotation.IdType
+import com.baomidou.mybatisplus.annotation.TableId
+import com.baomidou.mybatisplus.annotation.TableName
+import com.baomidou.mybatisplus.extension.activerecord.Model
 import com.fasterxml.jackson.annotation.JsonFormat
 import io.swagger.annotations.ApiParam
 import java.io.Serializable

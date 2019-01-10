@@ -1,7 +1,7 @@
 package cn.acheng1314.base.dao
 
 import cn.acheng1314.base.BaseApplicationTests
-import com.baomidou.mybatisplus.plugins.pagination.Pagination
+import javafx.scene.control.Pagination
 import org.junit.Test
 import org.springframework.beans.factory.annotation.Autowired
 

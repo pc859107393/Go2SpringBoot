@@ -1,0 +1,78 @@
+debug: true
+trace: false
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/cc_db?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: laopo5201314
+      initial-size: 5
+      max-active: 20
+      min-idle: 10
+      max-wait: 10
+      filters: stat,wall
+      filter:
+        stat:
+          log-slow-sql: true
+          enabled: true
+          slow-sql-millis: 5000
+          db-type: mysql
+        wall:
+          config:
+            merge-allow: true
+            multi-statement-allow: true
+            delete-allow: false
+            drop-table-allow: false
+          db-type: mysql
+      web-stat-filter:
+        url-pattern: /*
+        exclusions: "*.gif,*.png,*.jpg,*.html,*.js,*.css,*.ico,/druid/*"
+  transaction:
+    rollback-on-commit-failure: true
+  aop:
+    auto: true
+    proxy-target-class: true
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      force-request: true
+    converters:
+      preferred-json-mapper: jackson
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+  freemarker:
+    template-loader-path: "classpath:/templates/"
+    cache: false
+    content-type: text/html
+    charset: UTF-8
+    check-template-location: true
+    enabled: true
+    suffix: .ftl
+    request-context-attribute: req
+  resources:
+    static-locations: "classpath:/static/"
+server:
+  port: 8181
+mybatis-plus:
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      db-type: mysql
+      column-like: true
+      field-strategy: ignored
+      table-underline: true
+      capital-mode: true
+    super-mapper-class: com.baomidou.mybatisplus.core.mapper.BaseMapper
+  type-aliases-package: cn.acheng1314.*.domain.bean
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    cache-enabled: false
+    map-underscore-to-camel-case: true
+# Druid连接池配置，官方配置参考：https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter

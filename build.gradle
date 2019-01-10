@@ -51,7 +51,7 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-aop')
-    compile('org.springframework.boot:spring-boot-starter-cache')
+//    compile('org.springframework.boot:spring-boot-starter-cache')
     compile('org.springframework.boot:spring-boot-starter-data-rest')
     compile('org.springframework.boot:spring-boot-starter-freemarker')
     compile('org.springframework.boot:spring-boot-starter-validation')
@@ -70,7 +70,11 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.7'
     //mybatis-plus插件支持
-    compile 'com.baomidou:mybatis-plus-boot-starter:2.3'
+//    compile 'com.baomidou:mybatis-plus-boot-starter:2.3'
+
+    // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter
+    compile 'com.baomidou:mybatis-plus-boot-starter:3.0.6'
+
 
     compile "io.springfox:springfox-swagger2:${springfoxVersion}"
     compile "io.springfox:springfox-staticdocs:2.6.1"

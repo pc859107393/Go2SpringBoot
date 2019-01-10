@@ -6,7 +6,7 @@ import org.springframework.boot.runApplication
 import org.springframework.cache.annotation.EnableCaching
 
 @SpringBootApplication
-@MapperScan(basePackages = ["cn.acheng1314.base.dao"])
+//@MapperScan("cn.acheng1314.base.dao")
 @EnableCaching
 //@EnableScheduling
 class BaseApplication {
